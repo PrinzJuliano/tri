@@ -1,3 +1,6 @@
+/*
+Copyright © 2024 PrinzJuliano
+*/
 package todo
 
 import (
