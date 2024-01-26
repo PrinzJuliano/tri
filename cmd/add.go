@@ -9,6 +9,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var priority int
+
 // addCmd represents the add command
 var addCmd = &cobra.Command{
 	Use:   "add",
@@ -47,4 +49,5 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// addCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	addCmd.Flags().IntVarP(&priority, "priority", "p", 255, "Priority:1,2,3,...,255")
 }

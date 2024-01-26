@@ -13,7 +13,6 @@ import (
 
 // Flags
 var dataFile string
-var priority int
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -54,6 +53,4 @@ func init() {
 		home+string(os.PathSeparator)+".tri-todos.json",
 		"data file to store todos",
 	)
-
-	addCmd.Flags().IntVarP(&priority, "priority", "p", 255, "Priority:1,2,3,...,255")
 }

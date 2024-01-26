@@ -13,6 +13,11 @@ import (
 	"text/tabwriter"
 )
 
+var (
+	doneOpt bool
+	allOpt  bool
+)
+
 // listCmd represents the list command
 var listCmd = &cobra.Command{
 	Use:   "list",
@@ -31,9 +36,12 @@ func listRun(cmd *cobra.Command, args []string) {
 	sort.Sort(todo.ByPri(items))
 
 	w := tabwriter.NewWriter(os.Stdout, 3, 0, 1, ' ', 0)
+	fmt.Fprintln(w, "#\tDone\tPrio\tText\t")
 
 	for _, i := range items {
-		fmt.Fprintln(w, i.Label()+"\t"+i.PrettyPrintPriority()+"\t"+i.Text+"\t")
+		if allOpt || i.Done == doneOpt {
+			fmt.Fprintln(w, i.Label()+"\t"+i.PrettyPrintDone()+"\t"+i.PrettyPrintPriority()+"\t"+i.Text+"\t")
+		}
 	}
 	w.Flush()
 }
@@ -50,4 +58,6 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// listCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	listCmd.Flags().BoolVar(&doneOpt, "done", false, "Show 'Done' Todos")
+	listCmd.Flags().BoolVar(&allOpt, "all", false, "Show all Todos")
 }
